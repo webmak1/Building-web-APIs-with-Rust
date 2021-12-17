@@ -29,3 +29,6 @@ $ cargo run
 $ curl localhost:8000
 ```
 
+<br/>
+
+### 02. JSON
