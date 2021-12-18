@@ -1,3 +1,5 @@
+mod auth;
+use auth::BasicAuth;
 use rocket::response::status;
 use rocket::serde::json::Json;
 use rocket::serde::{Serialize, Deserialize};
@@ -11,31 +13,31 @@ struct User {
 }
 
 #[get("/rustaceans", format = "json")]
-fn get_rustaceans() -> Json<User> {
+fn get_rustaceans(_auth: BasicAuth) -> Json<User> {
     let person = User {id: 1, name: "John Doe".to_owned() };
     Json(person)
 }
 
 #[get("/rustaceans/<id>")]
-fn view_rustacean(id: i32) -> Json<User> {
+fn view_rustacean(id: i32, _auth: BasicAuth) -> Json<User> {
     let person = User {id: 1, name: "John Doe".to_owned() };
     Json(person)
 }
 
 #[post("/rustaceans", format = "json")]
-fn create_rustacean() -> Json<User>  {
+fn create_rustacean(_auth: BasicAuth) -> Json<User>  {
     let person = User {id: 1, name: "John Doe".to_owned() };
     Json(person)
 }
 
 #[put("/rustaceans/<id>", format = "json")]
-fn update_rustacean(id: i32) -> Json<User>  {
+fn update_rustacean(id: i32, _auth: BasicAuth) -> Json<User>  {
     let person = User {id: 1, name: "John Doe".to_owned() };
     Json(person)
 }
 
 #[delete("/rustaceans/<_id>")]
-fn delete_rustacean(_id: i32) -> status::NoContent {
+fn delete_rustacean(_id: i32, _auth: BasicAuth) -> status::NoContent {
     status::NoContent
 }
 
@@ -43,6 +45,7 @@ fn delete_rustacean(_id: i32) -> status::NoContent {
 fn not_found() -> Json<&'static str> {
     Json("Not found!")
 }
+
 
 #[rocket::main]
 async fn main() {

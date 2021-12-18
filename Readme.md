@@ -70,3 +70,48 @@ $ curl localhost:8000/rustaceans/1 -X DELETE -I
 <br/>
 
 ### 05. Error catchers
+
+<br/>
+
+## 03. Auth
+
+<br/>
+
+### 01. Basic auth intro
+
+<br/>
+
+### 02. Implementing a basic auth guard
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans -H 'Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ'
+```
+
+<br/>
+
+## 04. Database
+
+<br/>
+
+### 01. Diesel CLI
+
+```
+$ sudo apt install libsqlite3-dev
+```
+
+<br/>
+
+```
+$ cargo install diesel_cli --no-default-features --features sqlite
+$ diesel setup --database-url=database.sqlite
+$ diesel migration generate create_rustaceans
+```
+
+<br/>
+
+```
+$ diesel migration run --database-url=database.sqlite
+$ diesel migration redo --database-url=database.sqlite
+```
