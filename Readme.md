@@ -32,3 +32,39 @@ $ curl localhost:8000
 <br/>
 
 ### 02. JSON
+
+<br/>
+
+### 03. CRUD routes
+
+
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans
+```
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans/1
+```
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans -X POST -H 'Content-type: application/json'
+```
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans/1 -X PUT -H 'Content-type: application/json'
+```
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans/1 -X DELETE -I
+```
