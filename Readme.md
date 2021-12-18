@@ -37,8 +37,6 @@ $ curl localhost:8000
 
 ### 03. CRUD routes
 
-
-
 <br/>
 
 ```
@@ -68,3 +66,7 @@ $ curl localhost:8000/rustaceans/1 -X PUT -H 'Content-type: application/json'
 ```
 $ curl localhost:8000/rustaceans/1 -X DELETE -I
 ```
+
+<br/>
+
+### 05. Error catchers
