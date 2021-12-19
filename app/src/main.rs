@@ -3,8 +3,12 @@ use auth::BasicAuth;
 use rocket::response::status;
 use rocket::serde::json::Json;
 use rocket::serde::{Serialize, Deserialize};
+use rocket_sync_db_pools::{database, diesel};
 
 #[macro_use] extern crate rocket;
+
+#[database("sqlite_path")]
+struct DbConn(diesel::SqliteConnection);
 
 #[derive(Debug, Serialize, Deserialize)]
 struct User {
@@ -13,7 +17,7 @@ struct User {
 }
 
 #[get("/rustaceans", format = "json")]
-fn get_rustaceans(_auth: BasicAuth) -> Json<User> {
+fn get_rustaceans(_auth: BasicAuth, _conn: DbConn) -> Json<User> {
     let person = User {id: 1, name: "John Doe".to_owned() };
     Json(person)
 }
@@ -60,6 +64,7 @@ async fn main() {
       .register("/", catchers![
                 not_found
       ])
+      .attach(DbConn::fairing())
       .launch()
       .await;
 }

@@ -115,3 +115,8 @@ $ diesel migration generate create_rustaceans
 $ diesel migration run --database-url=database.sqlite
 $ diesel migration redo --database-url=database.sqlite
 ```
+
+
+<br/>
+
+### 02. Diesel and rocket - Dependencies
