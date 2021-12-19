@@ -120,3 +120,8 @@ $ diesel migration redo --database-url=database.sqlite
 <br/>
 
 ### 02. Diesel and rocket - Dependencies
+
+
+<br/>
+
+### 03. Diesel and rocket - Model & first query
