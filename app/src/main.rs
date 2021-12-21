@@ -41,10 +41,14 @@ fn view_rustacean(id: i32, _auth: BasicAuth) -> Json<User> {
     Json(person)
 }
 
-#[post("/rustaceans", format = "json")]
-fn create_rustacean(_auth: BasicAuth) -> Json<User>  {
-    let person = User {id: 1, name: "John Doe".to_owned() };
-    Json(person)
+#[post("/rustaceans", format = "json", data="<new_rustacean>")]
+async fn create_rustacean(_auth: BasicAuth, conn: DbConn, new_rustacean: Json<NewRustacean>) -> Json<usize>  {
+    conn.run(|c| {
+    let result = diesel::insert_into(rustaceans::table)
+            .values(new_rustacean.into_inner())
+            .execute(c).expect("Error adding restaceans to DB");
+    Json(result)
+    }).await
 }
 
 #[put("/rustaceans/<id>", format = "json")]

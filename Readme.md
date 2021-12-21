@@ -125,3 +125,40 @@ $ diesel migration redo --database-url=database.sqlite
 <br/>
 
 ### 03. Diesel and rocket - Model & first query
+
+<br/>
+
+### 04. Diesel and rocket - New model & create endpoint
+
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans \
+  -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
+  -H "Content-type: application/json" \
+  -X POST -d '{"name" : "John Doe", "email" : "john.doe@gmail.com"}' 
+```
+
+<br/>
+
+```
+$ curl localhost:8000/rustaceans \
+  -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
+  -H "Content-type: application/json" \
+  | jq
+```
+
+**returns:**
+
+```
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@gmail.com",
+    "created_at": "2021-12-20 23:58:52"
+  }
+]
+
+```
