@@ -116,7 +116,6 @@ $ diesel migration run --database-url=database.sqlite
 $ diesel migration redo --database-url=database.sqlite
 ```
 
-
 <br/>
 
 ### 02. Diesel and rocket - Dependencies
@@ -134,6 +133,7 @@ $ diesel migration redo --database-url=database.sqlite
 <br/>
 
 ```
+// CREATE
 $ curl localhost:8000/rustaceans \
   -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
   -H "Content-type: application/json" \
@@ -143,6 +143,7 @@ $ curl localhost:8000/rustaceans \
 <br/>
 
 ```
+// GET ALL
 $ curl localhost:8000/rustaceans \
   -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
   -H "Content-type: application/json" \
@@ -160,5 +161,30 @@ $ curl localhost:8000/rustaceans \
     "created_at": "2021-12-20 23:58:52"
   }
 ]
+```
 
+
+<br/>
+
+### 06. Diesel and rocket - Full CRUD
+
+
+<br/>
+
+```
+// UPDATE
+$ curl localhost:8000/rustaceans/1 \
+  -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
+  -H "Content-type: application/json" \
+  -X PUT -d '{"id" : 1, "name" : "Jane Doe", "email" : "john.doe@gmail.com"}'
+```
+
+<br/>
+
+```
+// DELETE
+$ curl localhost:8000/rustaceans/1 \
+  -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
+  -H "Content-type: application/json" \
+  -X DELETE 
 ```
