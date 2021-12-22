@@ -163,11 +163,9 @@ $ curl localhost:8000/rustaceans \
 ]
 ```
 
-
 <br/>
 
 ### 06. Diesel and rocket - Full CRUD
-
 
 <br/>
 
@@ -188,3 +186,7 @@ $ curl localhost:8000/rustaceans/1 \
   -H "Content-type: application/json" \
   -X DELETE 
 ```
+
+<br/>
+
+### 07. Repositories
