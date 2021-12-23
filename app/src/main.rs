@@ -1,5 +1,6 @@
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate diesel;
+#[macro_use] extern crate diesel_migrations;
 
 mod auth;
 mod models;
@@ -9,16 +10,17 @@ mod repositories;
 use auth::BasicAuth;
 use rocket::response::status;
 use rocket::http::Status;
+use rocket::fairing::AdHoc;
 use rocket::serde::json::Json;
 use rocket_sync_db_pools::{database};
 
 use models::*;
 use repositories::*;
 
+embed_migrations!();
 
 #[database("sqlite_path")]
 struct DbConn(diesel::SqliteConnection);
-
 
 // #[get("/rustaceans", format = "json")]
 // async fn get_rustaceans(_auth: BasicAuth, conn: DbConn) -> Json<Vec<models::Rustacean>> {
@@ -116,6 +118,18 @@ fn not_found() -> Json<&'static str> {
     Json("Not found!")
 }
 
+async fn run_db_migrations(rocket: rocket::Rocket<rocket::Build>) -> Result<rocket::Rocket<rocket::Build>, rocket::Rocket<rocket::Build>> {
+    DbConn::get_one(&rocket).await
+        .expect("failed to retrieve database connection")
+        .run(|c| match embedded_migrations::run(c) {
+            Ok(()) => Ok(rocket),
+            Err(e) => {
+                println!("Failed to run database migrations: {:?}", e);
+                Err(rocket)
+            }
+        }).await
+}
+
 #[rocket::main]
 async fn main() {
      let _ = rocket::build()
@@ -130,6 +144,7 @@ async fn main() {
                 not_found
       ])
       .attach(DbConn::fairing())
+      .attach(AdHoc::try_on_ignite("Database Migrations", run_db_migrations))
       .launch()
       .await;
 }
