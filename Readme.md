@@ -204,3 +204,66 @@ $ curl localhost:8000/rustaceans/1 \
 <br/>
 
 ### 10. Embedding migrations
+
+<br/>
+
+## 05. Deploying
+
+<br/>
+
+### 01. Deploying and systemd
+
+```
+$ cargo build --release
+$ ./target/release/rocket-app
+```
+
+<br/>
+
+```
+$ ROCKET_DATABASES={sqlite_path={url./database.sqlite}} ./app
+```
+
+<br/>
+
+**Add app as systemd service**
+
+<br/>
+
+```
+$ sudo vi /etc/systemd/system/rocket-app.service
+```
+
+<br/>
+
+```
+[Unit]
+Description=My Rocket application
+
+[Service]
+User=www-data
+Group=www-data
+# The user www-data should own this directory
+WorkingDirectory=/var/www/rocket-app
+Environment="ROCKET_ENV=prod"
+Environment="ROCKET_ADDRESS=127.0.0.1"
+Environment="ROCKET_PORT=8000"
+Environment="ROCKET_DATABASES={sqlite_path={url./database.sqlite}}"
+ExecStart=/var/www/rocket-app/rocket-app
+
+[Install]
+WantedBy=multi-user.target
+```
+
+<br/>
+
+
+```
+$ sudo systemctl enable rocket-app.service
+$ sudo systemctl start  rocket-app.service
+$ sudo systemctl status rocket-app.service
+```
+
+<br/>
+
+### 02. Reverse proxying with nginx and ssl
