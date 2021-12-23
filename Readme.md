@@ -148,7 +148,7 @@ $ curl localhost:8000/rustaceans \
   -H "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ" \
   -H "Content-type: application/json" \
   | jq
-```
+``` 
 
 **returns:**
 
@@ -190,3 +190,8 @@ $ curl localhost:8000/rustaceans/1 \
 <br/>
 
 ### 07. Repositories
+
+
+<br/>
+
+### 09. Error handling
